@@ -1,27 +1,78 @@
+#include <iostream>
+#include <vector>
+#include <string>
 #include "BuaaInterface.h"
 
 using namespace std;
 
-void BuaaInterface_jizai::precisionPathPlan(char data_type[4], char task_id[8], int uav_num, iPosition* positions)
+void BuaaInterface_jizai::clear_uav_map()
 {
-	for (int i = 0; i < uav_num; i++) {
-		uavInfo* ua_info = new uavInfo(positions[i].UAV_ID);
-		for (int j = 0; j < 10; j++) {
-			ua_info->paths.push(_Axis(positions[i].x1[j], positions[i].y1[j], positions[i].z1[j]));
+	uav_map.clear();
+}
+
+void BuaaInterface_jizai::precisionPathPlan(char data_type[4], char task_id[8], int uav_num, vector<iPosition> positions)
+{
+	std::cout << "precisionPathPlan: uav_map_size:" << uav_map.size()<< " positions_size:"<< positions.size()<<" uav_num:" <<uav_num << std::endl;
+	if (uav_map.size() < uav_num) {
+		for (int i = 0; i < uav_num; i++) {
+			uavInfo* ua_info = new uavInfo(positions[i].UAV_ID);
+			for (int j = 0; j < 10; j++) {
+				ua_info->paths.push(_Axis(positions[i].x1[j], positions[i].y1[j], positions[i].z1[j]));
+			}
+			uav_map.emplace(ua_info->uav_id, ua_info);
 		}
-		uav_map.emplace(ua_info->uav_id, ua_info);
+	}
+	else {
+		for (int i = 0; i < uav_num; i++) {
+			int uav_id = positions[i].UAV_ID;
+			uavInfo* ua_info = uav_map[uav_id];
+			for (int j = 0; j < 10; j++) {
+				ua_info->paths.push(_Axis(positions[i].x1[j], positions[i].y1[j], positions[i].z1[j]));
+			}
+		}
 	}
 }
 
-
-void BuaaInterface_jizai::getPathPlanInfo(string& data_type, string& task_id, Uavposition* uavpos)
+int::BuaaInterface_jizai::get_uav_map_path_len()
 {
-	uavInfo* uav_info = uav_map[uavpos->UAV_ID];
-	if (!uav_info->paths.empty()) {
-		_Axis& location = uav_info->paths.front();
-		uavpos->x1 = location.x;
-		uavpos->y1 = location.y;
-		uavpos->z1 = location.z;
-		uav_info->paths.pop();
+	if (uav_map.size() == 0)
+		return 0;
+	else {
+		for (auto iter = uav_map.begin(); iter != uav_map.end(); ++iter) {
+			Uavposition pos;
+			uavInfo* uav_info = iter->second;
+			pos.UAV_ID = iter->first;
+			return uav_info->paths.size();
+		}
 	}
+}
+
+void BuaaInterface_jizai::getPathPlanInfo(vector<Uavposition>& poss)
+{	
+	bool flag = false;
+	bool verbose = false;
+	if (uav_map.size() == 0) {
+		//cout << "无无人机映射" << endl;
+	}
+	else {
+		for (auto iter = uav_map.begin(); iter != uav_map.end(); ++iter) {
+			Uavposition pos;
+			uavInfo* uav_info = iter->second;
+			pos.UAV_ID = iter->first;
+			//cout << "pos.id: " << pos.UAV_ID << endl;
+			if (uav_info->paths.empty()) {
+				flag = true;
+				break;
+			}
+			else {
+				_Axis& loc = uav_info->paths.front();
+				pos.x1 = loc.x, pos.y1 = loc.y, pos.z1 = loc.z;
+				uav_info->paths.pop();
+			}
+			if (verbose) cout << "路径队列剩余长度：" << uav_info->paths.size() << endl;
+			poss.emplace_back(pos);
+		}
+		if (flag) poss.clear();
+	}
+	
 }

@@ -1,4 +1,5 @@
 #include "Timer.h"
+#include <iostream>
 
 Timer::Timer(const Timeout& timeout)
 	: _timeout(timeout) {
@@ -13,7 +14,6 @@ Timer::Timer(const Timeout& timeout, const Interval& interval, bool singleShot)
 void Timer::start(bool multiThread) {
 	if (this->running() == true)
 		return;
-
 	_running = true;
 
 	if (multiThread == true) {
@@ -30,7 +30,7 @@ void Timer::stop() {
 	_thread.join();
 }
 
-bool Timer::running() const{
+bool Timer::running() const {
 	return _running;
 }
 
@@ -48,7 +48,7 @@ bool Timer::isSingleShot() const {
 void Timer::setInterval(const Timer::Interval& interval) {
 	if (this->running())
 		return;
-	
+
 	_interval = interval;
 }
 
@@ -71,7 +71,10 @@ void Timer::_temporize() {
 		this->_sleepThenTimeout();
 	else
 		while (this->running())
+		{
+			//std::cout << "进入定时器..." << std::endl;
 			this->_sleepThenTimeout();
+		}
 }
 
 void Timer::_sleepThenTimeout() {

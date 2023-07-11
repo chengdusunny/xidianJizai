@@ -13,24 +13,27 @@ public:
 	BuaaInterface_jizai() {}
 
 	//路径规划信息下发机载任务规划分系统接口
-	void precisionPathPlan(char data_type[4], char task_id[8], int uav_num, iPosition* positions);
+	void precisionPathPlan(char data_type[4], char task_id[8], int uav_num, std::vector<iPosition> positions);
 	//下发动态战情接口
 	//void dynamicInfoAssign(char data_type[4], char task_id[8], int new_obs_num, Dynamic_Obstacles* new_obs, int uav_num, UAVState* uav_info);
 	//预规划路径信息下发通信仿真分系统接口
-	void getPathPlanInfo(std::string& data_type, std::string& task_id, Uavposition* uavpos);
+	void getPathPlanInfo(std::vector<Uavposition>& poss);
+	//清空uav_map
+	void clear_uav_map();//2023/04/17
+	int get_uav_map_path_len();//2023/04/18
 	//中心任务规划分系统上报返航完成接口
 	//void taskCompleted(std::string& data_type, std::string& task_id, int& order);
-
-private:
 	struct _Axis {
 	public:
 		float x;
 		float y;
 		float z;
 
-		_Axis(float _x, float _y, float _z):x(_x), y(_y), z(_z) {}
+		_Axis(float _x, float _y, float _z) :x(_x), y(_y), z(_z) {}
 	};
 
+private:
+	
 	struct uavInfo {
 	public:
 		int uav_id;

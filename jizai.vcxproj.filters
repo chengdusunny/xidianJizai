@@ -26,13 +26,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BuaaInterface.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\common.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\Timer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BuaaInterface.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
