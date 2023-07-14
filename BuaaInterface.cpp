@@ -7,6 +7,7 @@ using namespace std;
 
 void BuaaInterface_jizai::clear_uav_map()
 {
+	std::cout << "Clear the uav_map!" << std::endl;
 	uav_map.clear();
 }
 

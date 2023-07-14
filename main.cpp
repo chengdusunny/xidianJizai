@@ -305,34 +305,17 @@ int main() {
 				char data_type[5];
 				memcpy(data_type, p, 4);
 				data_type[4] = '\0';
-				if (strncmp(data->datatype, "KALD", 4) == 0) // 2023/07/11 -- wt
+				if (strcmp(data_type, "KALD") == 0)
 				{
-					ZQKALD* data = new ZQKALD();
-					char* p = buf;
-					memcpy(data, p, sizeof(ZQKALD));
-					p += sizeof(ZQKALD);
-					
-					Dynamic_Obstacles* dObstacles = new Dynamic_Obstacles[data->num_obs];
-					memcpy(dObstacles, p, sizeof(Dynamic_Obstacles) * data->num_obs);
-					p += sizeof(Dynamic_Obstacles) * data->num_obs;
-
-					UAVState* uavStates = new UAVState[data->num_uav];
-					memcpy(uavStates, p, sizeof(UAVState) * data->num_uav);
-					p += sizeof(UAVState) * data->num_uav;
-
-					targets* Targets = new targets[data->num_target];
-					memcpy(uavStates, p, sizeof(targets) * data->num_target);
-					p += sizeof(targets) * data->num_target;
-
-					iTgState* iTargets = new iTgState[data->num_target];
-					memcpy(uavStates, p, sizeof(iTgState) * data->num_target);
-					p += sizeof(iTgState) * data->num_target;
-
-					//判断哪些UAV被重新分配路径点了
-					
-				} // 以上解析动态ZQ 2023/07/11
-				if (strcmp(data_type, "TJR9") == 0) continue;
-				if (strcmp(data_type, "TJR5") != 0 && strcmp(data_type, "TJRD") != 0) continue;
+					b_interface->clear_uav_map();
+				}
+				if (strcmp(data_type, "TJR9") == 0) {
+					continue;
+				}
+				if (strcmp(data_type, "TJR5") != 0 && strcmp(data_type, "TJRD") != 0)
+				{
+					continue;
+				}
 				ZQTJRD* data = new ZQTJRD;
 				memcpy(data, p, sizeof(ZQTJRD));
 				int uav_num1 = data->num_uav;
