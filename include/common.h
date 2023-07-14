@@ -1,13 +1,14 @@
 #pragma once
 #include<string.h>
 
-#define MAX_BUF 1024 * 10
+#define MAX_BUF 1024 * 2
 #define PORT 10001
 #define IP 192.168.40.1
 
 #define SENDIP "127.0.0.1"
 #define SENDPORT 10004
 
+// 2023/07/14
 
 struct iPlatState //表示无人机状态
 {
@@ -162,7 +163,7 @@ struct ZQJRTE
 	char taskID[8];
 	Uavposition uavpos;
 };
-//挂载 Uavposotion* uavpos;
+//取消挂载 Uavposotion* uavpos;
 
 struct RECEIVEACK
 {
