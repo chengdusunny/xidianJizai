@@ -4,6 +4,7 @@
 #include <thread>
 #include <chrono>
 #include <functional>
+#include <iostream>
 
 class Timer {
 public:
@@ -16,7 +17,7 @@ public:
 	void start(bool multiThread = false);
 	void stop();
 	bool running() const;
-	
+	int j = 0;
 	void setSingleShot(bool singleShot);
 	bool isSingleShot() const;
 
