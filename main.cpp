@@ -164,8 +164,8 @@ int main() {
 			if (verbose_timer) std::cout << "poss size: " << poss.size() << std::endl;
 			std::cout << poss.size() << std::endl;
 			std::cout << uav_num << std::endl;
-			//if (poss.size() == uav_num)
-			if (uav_num > 0)			// 0726 revised
+			if (poss.size() == uav_num)
+			//if (uav_num > 0)			// 0726 revised
 			{
 				for (int i = 0; i < uav_num; i++) {
 					memset(send_buf, 0, MAX_BUF); // 清空send buffer
@@ -232,7 +232,7 @@ int main() {
 			char* p = buf;
 			memcpy(data, p, sizeof(ZQTJRJ));
 			std::cout << "无人机数量: " << data->num_uav << std::endl;
-			uav_num = data->num_uav;
+			//uav_num = data->num_uav;
 			task_id = data->taskID;
 			//2023/04/18 判断收到信息的datatype
 			if (strncmp(data->datatype, "TJRJ", 4) == 0)
