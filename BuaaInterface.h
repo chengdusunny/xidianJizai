@@ -21,6 +21,8 @@ public:
 	//清空uav_map
 	void clear_uav_map();//2023/04/17
 	int get_uav_map_path_len();//2023/04/18
+	std::vector<int> get_uav_id(); //2023/07/26
+	int get_uav_num();  //2023/07/26s
 	//中心任务规划分系统上报返航完成接口
 	//void taskCompleted(std::string& data_type, std::string& task_id, int& order);
 	struct _Axis {
@@ -33,7 +35,7 @@ public:
 	};
 
 private:
-	
+
 	struct uavInfo {
 	public:
 		int uav_id;
@@ -42,7 +44,7 @@ private:
 
 	public:
 		uavInfo(int _uav_id)
-			: uav_id(_uav_id){}
+			: uav_id(_uav_id) {}
 	};
 
 	struct targetInfo {
@@ -85,4 +87,3 @@ private:
 	std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, cmp> heap;
 	int index = 0;
 };
-

@@ -24,15 +24,21 @@
     <ClCompile Include="BuaaInterface.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="include\tao.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\common.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\Timer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="BuaaInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tao.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

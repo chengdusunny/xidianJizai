@@ -134,12 +134,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BuaaInterface.cpp" />
+    <ClCompile Include="include\tao.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BuaaInterface.h" />
-    <ClInclude Include="include\common.h" />
+    <ClInclude Include="common.h" />
+    <ClInclude Include="include\tao.h" />
     <ClInclude Include="include\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
