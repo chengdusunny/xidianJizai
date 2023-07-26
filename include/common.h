@@ -1,14 +1,13 @@
 #pragma once
 #include<string.h>
 
-#define MAX_BUF 1024 * 2
+#define MAX_BUF 1024 * 10
 #define PORT 10001
 #define IP 192.168.40.1
 
 #define SENDIP "127.0.0.1"
 #define SENDPORT 10004
 
-// 2023/07/14
 
 struct iPlatState //表示无人机状态
 {
@@ -163,7 +162,7 @@ struct ZQJRTE
 	char taskID[8];
 	Uavposition uavpos;
 };
-//取消挂载 Uavposotion* uavpos;
+//挂载 Uavposotion* uavpos;
 
 struct RECEIVEACK
 {
@@ -176,13 +175,16 @@ struct RECEIVEACK
 //下发动态战情接口 接受数据结构
 struct ZQKALD
 {
-	char datatype[4];//数据类型代号
-	char taskID[8];//任务代号
-	int num_obs;//新增障碍物数量
-	int num_uav;//状态变化无人机数量
+	char datatype[4];	// 数据类型代号
+	char taskID[8];		// 任务代号
+	int num_obs;		// 新增障碍物数量
+	int num_uav;		// 状态变化无人机数量
+	int num_target;		// 目标数量
 };
-//挂载 Dynamic_Obstacles* dObstacles;//新增障碍物信息 和新增障碍物数量一致
-//挂载 UAVState* uavStates;//状态变化无人机信息 和状态变化无人机数量一致
+//挂载 Dynamic_Obstacles* dObstacles;		// 新增障碍物信息 和新增障碍物数量一致
+//挂载 UAVState* uavStates;					// 状态变化无人机信息 和状态变化无人机数量一致
+//挂载 targets* Targets;						// 目标编号类型位置信息 和目标数量一致
+//挂载 iTgState* iTargets;					// 目标状态信息 和目标数量一致
 
 //预规划路径信息下发通信仿真分系统接口 发送数据结构
 //每5秒发送每个无人机规划后的十个路径点
