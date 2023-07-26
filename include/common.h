@@ -1,7 +1,7 @@
 #pragma once
 #include<string.h>
 
-#define MAX_BUF 1024 * 10
+#define MAX_BUF 1024 * 2
 #define PORT 10001
 #define IP 192.168.40.1
 
@@ -80,7 +80,7 @@ struct Dynamic_Obstacles  //新增障碍物信息
 	int ob_Type;
 	float x1; float y1; float z1;
 	float Range;
-	int speed;//增加速度属性
+	float speed[3];//增加速度属性
 };
 
 struct targets
@@ -162,7 +162,7 @@ struct ZQJRTE
 	char taskID[8];
 	Uavposition uavpos;
 };
-//挂载 Uavposotion* uavpos;
+//取消挂载 Uavposotion* uavpos;
 
 struct RECEIVEACK
 {
